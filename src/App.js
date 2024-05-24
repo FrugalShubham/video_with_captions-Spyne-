@@ -1,25 +1,27 @@
-import logo from './logo.svg';
+
 import './App.css';
+import React, { useState } from 'react';
+import VideoInput from './components/VideoInput';
+import CaptionInput from './components/CaptionInput';
+import VideoPlayer from './components/VideoPlayer';
 
 function App() {
+  const [videoUrl, setVideoUrl] = useState('');
+  const [captions, setCaptions] = useState([]);
+
+  const addCaption = (timestamp, text) => {
+    setCaptions([...captions, { timestamp, text }]);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Video Captioner</h1>
+      <VideoInput setVideoUrl={setVideoUrl} />
+      <CaptionInput addCaption={addCaption} />
+      <VideoPlayer videoUrl={videoUrl} captions={captions} />
     </div>
   );
 }
 
 export default App;
+
